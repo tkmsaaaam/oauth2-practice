@@ -1,12 +1,12 @@
-const express = require('express');
-const open = require(`open`);
-const bodyParser = require('body-parser');
-const { Issuer, generators } = require('openid-client');
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+import express from 'express';
+import open from 'open';
+import bodyParser from 'body-parser';
+import { Issuer, generators, TokenSet } from 'openid-client';
+import fetch from 'node-fetch';
 require('dotenv').config();
 const HOST = '127.0.0.1';
 const PORT = 3000;
-const app = express();
+const app: express.Express = express();
 const codeVerifier = generators.codeVerifier();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -17,13 +17,14 @@ const issuer = new Issuer({
 	token_endpoint: 'https://api.twitter.com/2/oauth2/token',
 });
 const client = new issuer.Client({
-	client_id: process.env.CLIENT_ID,
+	client_id: process.env.CLIENT_ID as string,
 	client_secret: process.env.CLIENT_SECRET,
 });
 
-let sessionState;
-let sessionOriginalUrl;
-let sessionToken;
+let sessionState: string;
+let sessionOriginalUrl: string;
+let sessionCodeVerifier: string;
+let sessionToken: TokenSet;
 
 app.post('/authorize', (req, res) => {
 	(async () => {
@@ -37,17 +38,18 @@ app.get('/scope', (req, res, next) => {
 	(async () => {
 		if (sessionToken) {
 			console.log(sessionToken.access_token);
-			const xmlReq = new XMLHttpRequest();
-			xmlReq.open('GET', 'https://api.twitter.com/2/users/me');
-			xmlReq.setRequestHeader(
-				'Authorization',
-				`Bearer ${sessionToken.access_token}`
-			);
-			xmlReq.responseType = 'json';
-			xmlReq.send();
-			xmlReq.onload = () => {
-				res.send(xmlReq.responseText);
-			};
+			fetch('https://api.twitter.com/2/users/me', {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${sessionToken.access_token}`,
+				},
+			})
+				.then(apiRes => {
+					return apiRes.json();
+				})
+				.then(data => {
+					res.send(data);
+				});
 			return;
 		}
 		const codeChallenge = generators.codeChallenge(codeVerifier);
@@ -55,7 +57,7 @@ app.get('/scope', (req, res, next) => {
 		const url = client.authorizationUrl({
 			redirect_uri: `http://${HOST}:${PORT}/cb`,
 			response_type: 'code',
-			scope: req.query.scope,
+			scope: req.query.scope as string,
 			state,
 			code_challenge: codeChallenge,
 			code_challenge_method: 'S256',
