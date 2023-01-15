@@ -1,18 +1,18 @@
 import express from 'express';
 import open from 'open';
 import bodyParser from 'body-parser';
-import { Issuer, generators, TokenSet } from 'openid-client';
+import { Issuer, generators, TokenSet, BaseClient } from 'openid-client';
 import fetch from 'node-fetch';
 import path from 'path';
 require('dotenv').config();
-const HOST = '127.0.0.1';
-const PORT = 3000;
+const HOST: string = '127.0.0.1';
+const PORT: number = 3000;
 const app: express.Express = express();
-const codeVerifier = generators.codeVerifier();
+const codeVerifier: string = generators.codeVerifier();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const issuer = new Issuer({
+const issuer: Issuer<BaseClient> = new Issuer({
 	issuer: 'https://twitter.com',
 	authorization_endpoint: 'https://twitter.com/i/oauth2/authorize',
 	token_endpoint: 'https://api.twitter.com/2/oauth2/token',
