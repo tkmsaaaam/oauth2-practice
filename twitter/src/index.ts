@@ -3,6 +3,7 @@ import open from 'open';
 import bodyParser from 'body-parser';
 import { Issuer, generators, TokenSet } from 'openid-client';
 import fetch from 'node-fetch';
+import path from 'path';
 require('dotenv').config();
 const HOST = '127.0.0.1';
 const PORT = 3000;
@@ -89,7 +90,7 @@ app.get('/cb', (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 app.listen(PORT, () => {
