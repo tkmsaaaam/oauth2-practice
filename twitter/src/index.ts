@@ -79,7 +79,7 @@ app.get('/cb', (req, res, next) => {
 		const tokenSet = await client.oauthCallback(
 			`http://${HOST}:${PORT}/cb`,
 			params,
-			{ code_verifier: codeVerifier, state },
+			{ code_verifier: sessionCodeVerifier, state },
 			{ exchangeBody: { client_id: process.env.CLIENT_ID } }
 		);
 		console.log('received and validated tokens %j', tokenSet);
