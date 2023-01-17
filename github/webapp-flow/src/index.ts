@@ -17,7 +17,7 @@ const issuer: Issuer<BaseClient> = new Issuer({
 	token_endpoint: 'https://github.com/login/oauth/access_token',
 });
 const client = new issuer.Client({
-	client_id: process.env.CLIENT_ID as string,
+	client_id: process.env.CLIENT_ID || '',
 	client_secret: process.env.CLIENT_SECRET,
 });
 
