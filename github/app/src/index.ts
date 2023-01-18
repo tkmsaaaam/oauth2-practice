@@ -29,9 +29,7 @@ require('dotenv').config();
 				Accept: 'application/vnd.github+json',
 			},
 		}
-	).then(res => {
-		return res.json();
-	});
+	).then(res => res.json());
 	console.log(accessTokenRes);
 
 	const accessToken = accessTokenRes.token;
@@ -48,9 +46,7 @@ require('dotenv').config();
 					Accept: 'application/vnd.github+json',
 				},
 			}
-		).then(res => {
-			return res.json();
-		});
+		).then(res => res.json());
 		console.log(repoOwnereRepo1);
 	}
 })();

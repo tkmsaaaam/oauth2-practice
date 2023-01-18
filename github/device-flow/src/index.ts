@@ -29,9 +29,7 @@ type OauthResponse = {
 			},
 		}
 	)
-		.then(res => {
-			return res.json();
-		})
+		.then(res => res.json())
 		.then(data => {
 			console.log('request to login/device/code');
 			console.log(data);
@@ -49,9 +47,7 @@ type OauthResponse = {
 			},
 		}
 	)
-		.then(res => {
-			return res.json();
-		})
+		.then(res => res.json())
 		.then(data => {
 			console.log('request to login/oauth/access_token');
 			console.log(data);
@@ -65,9 +61,7 @@ type OauthResponse = {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	})
-		.then(res => {
-			return res.json();
-		})
+		.then(res => res.json())
 		.then(data => {
 			console.log('request to /user');
 			console.log(data);

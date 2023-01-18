@@ -45,9 +45,7 @@ app.get('/scope', (req, res, next) => {
 					Authorization: `Bearer ${sessionToken.access_token}`,
 				},
 			})
-				.then(apiRes => {
-					return apiRes.json();
-				})
+				.then(res => res.json())
 				.then(data => {
 					res.send(data);
 				});

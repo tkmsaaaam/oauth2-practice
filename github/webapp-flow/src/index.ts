@@ -52,9 +52,7 @@ require('dotenv').config();
 						Authorization: `Bearer ${sessionToken.access_token}`,
 					},
 				})
-					.then(apiRes => {
-						return apiRes.json();
-					})
+					.then(res => res.json())
 					.then(data => {
 						res.send(data);
 					});
