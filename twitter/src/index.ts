@@ -18,8 +18,9 @@ require('dotenv').config();
 		authorization_endpoint: 'https://twitter.com/i/oauth2/authorize',
 		token_endpoint: 'https://api.twitter.com/2/oauth2/token',
 	});
+	if (!process.env.CLIENT_ID) return;
 	const client = new issuer.Client({
-		client_id: process.env.CLIENT_ID as string,
+		client_id: process.env.CLIENT_ID,
 		client_secret: process.env.CLIENT_SECRET,
 	});
 
