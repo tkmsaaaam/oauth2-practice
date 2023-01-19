@@ -1,5 +1,5 @@
 {
-  "name": "oauth2-practice",
+  "name": "webapp-flow",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/tkmsaaaam/oauth2-practice/tree/main/github"
+    "url": "github.com/tkmsaaaam/oauth2-practice/tree/main/github/webapp-flow"
   },
   "author": "tkmsaaaam",
   "license": "MIT",
