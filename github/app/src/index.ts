@@ -1,7 +1,8 @@
 import fetch from 'node-fetch';
+import * as dotenv from 'dotenv';
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+dotenv.config();
 
 (async () => {
 	const now = Math.floor(Date.now() / 1000);

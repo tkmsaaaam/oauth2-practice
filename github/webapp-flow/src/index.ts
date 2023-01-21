@@ -4,7 +4,8 @@ import bodyParser from 'body-parser';
 import { Issuer, generators, TokenSet, BaseClient } from 'openid-client';
 import fetch from 'node-fetch';
 import path from 'path';
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 (() => {
 	const HOST: string = '127.0.0.1';
 	const PORT: number = 3000;

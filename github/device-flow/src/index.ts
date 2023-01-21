@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const sleep = (time: number) =>
 	new Promise(resolve => setTimeout(resolve, time * 1000));
