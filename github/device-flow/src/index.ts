@@ -19,8 +19,9 @@ type OauthResponse = {
 	scope: string;
 };
 
-(async () => {
-	const clientId = process.env.CLIENT_ID;
+(async (): Promise<void> => {
+	if (!process.env.CLIENT_ID) return;
+	const clientId: string = process.env.CLIENT_ID;
 	const deviceCode: string = await fetch(
 		`https://github.com/login/device/code?client_id=${clientId}&scope=`,
 		{
@@ -31,10 +32,10 @@ type OauthResponse = {
 		}
 	)
 		.then(res => res.json())
-		.then(data => {
+		.then((data: DeviceResponse) => {
 			console.log('request to login/device/code');
 			console.log(data);
-			return (data as DeviceResponse).device_code;
+			return data.device_code;
 		});
 
 	await sleep(60);
@@ -49,10 +50,10 @@ type OauthResponse = {
 		}
 	)
 		.then(res => res.json())
-		.then(data => {
+		.then((data: OauthResponse) => {
 			console.log('request to login/oauth/access_token');
 			console.log(data);
-			return (data as OauthResponse).access_token;
+			return data.access_token;
 		});
 
 	fetch('https://api.github.com/user', {
