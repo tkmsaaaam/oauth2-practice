@@ -4,8 +4,8 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 dotenv.config();
 
-(async () => {
-	const now = Math.floor(Date.now() / 1000);
+(async (): Promise<void> => {
+	const now: number = Math.floor(Date.now() / 1000);
 	const jwtPayload = {
 		iat: now,
 		exp: now + 60 * 10 - 30,
@@ -33,9 +33,9 @@ dotenv.config();
 	).then(res => res.json());
 	console.log(accessTokenRes);
 
-	const accessToken = accessTokenRes.token;
+	const accessToken: String = accessTokenRes.token;
 	if (!process.env.REPOS) return;
-	const repos = process.env.REPOS;
+	const repos: String = process.env.REPOS;
 
 	for (const repo of repos.split(',')) {
 		console.log(`request to /repos/${process.env.OWNER}/${repo}`);
