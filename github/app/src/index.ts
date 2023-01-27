@@ -4,9 +4,16 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 dotenv.config();
 
+type JwtPayload = {
+	iat: number;
+	exp: number;
+	iss: string;
+};
+
 (async (): Promise<void> => {
+	if (!process.env.APP_ID) return;
 	const now: number = Math.floor(Date.now() / 1000);
-	const jwtPayload = {
+	const jwtPayload: JwtPayload = {
 		iat: now,
 		exp: now + 60 * 10 - 30,
 		iss: process.env.APP_ID,
